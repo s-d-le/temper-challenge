@@ -49,6 +49,7 @@ const goBack = (index: number) => {
 
 <template>
   <div v-auto-animate>
+    <h1>Sortable Post List</h1>
     <Post
       v-for="(post, index) in posts"
       :key="post.id"

@@ -12,19 +12,32 @@ defineEmits<{
 </script>
 
 <template>
-  <div class="post">
+  <div
+    class="flex justify-between text-neutral-500 bg-white border border-slate-100 rounded-md p-6 m-4 drop-shadow-[0_4px_4px_rgba(0,0,0,0.07)]"
+  >
     <h2>Post {{ id }}</h2>
-    <button @click="$emit('click:moveUp', id)" v-if="!hideUpButton">Up</button>
-    <button @click="$emit('click:moveDown', id)" v-if="!hideDownButton">
-      Down
-    </button>
+    <div class="flex flex-col gap-y-3 justify-center">
+      <button @click="$emit('click:moveUp', id)" v-if="!hideUpButton">
+        <div class="triangle"></div>
+      </button>
+      <button @click="$emit('click:moveDown', id)" v-if="!hideDownButton">
+        <div class="triangle down"></div>
+      </button>
+    </div>
   </div>
 </template>
 
 <style scoped>
-.post {
-  border: 1px solid #ccc;
-  padding: 1em;
-  margin: 1em 0;
+.triangle {
+  border-right: 2px solid;
+  border-bottom: 2px solid;
+  height: 10px;
+  width: 10px;
+  transform: rotate(-135deg);
+  border-color: blueviolet;
+
+  &.down {
+    transform: rotate(45deg);
+  }
 }
 </style>
