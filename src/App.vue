@@ -48,7 +48,7 @@ const goBack = (index: number) => {
 </script>
 
 <template>
-  <div>
+  <div v-auto-animate>
     <Post
       v-for="(post, index) in posts"
       :key="post.id"
@@ -61,7 +61,7 @@ const goBack = (index: number) => {
   </div>
   <div>
     <h2>History</h2>
-    <ul>
+    <ul v-auto-animate>
       <li v-for="(item, index) in history" :key="item.index">
         {{ item.text }}
         <button @click="goBack(index)">Time travel</button>
