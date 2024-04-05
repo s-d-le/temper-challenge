@@ -21,7 +21,7 @@ const movePost = (index: number, direction: number) => {
   const movedPost = posts.value[index];
   const newIndex = index + direction;
 
-  //remove the post from the array
+  //remove the selected post from the array
   posts.value.splice(index, 1);
   //insert the post at the new index
   posts.value.splice(newIndex, 0, movedPost);
@@ -38,9 +38,11 @@ const movePost = (index: number, direction: number) => {
 
 const goBack = (index: number) => {
   const targetState = history.value[index].state;
+  //replace posts with the order stored in history.value.state
   posts.value = targetState.map(
     (id) => posts.value.find((post) => post.id === id)!
   );
+  //remove all history items after the selected one
   history.value.splice(index + 1);
 };
 </script>
@@ -53,6 +55,8 @@ const goBack = (index: number) => {
       :id="post.id"
       @click:move-down="movePost(index, 1)"
       @click:move-up="movePost(index, -1)"
+      :hide-up-button="index === 0"
+      :hide-down-button="index === posts.length - 1"
     />
   </div>
   <div>
@@ -60,7 +64,7 @@ const goBack = (index: number) => {
     <ul>
       <li v-for="(item, index) in history" :key="item.index">
         {{ item.text }}
-        <button @click="goBack(index)">Go back here</button>
+        <button @click="goBack(index)">Time travel</button>
       </li>
     </ul>
   </div>

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 defineProps<{
   id: number;
+  hideUpButton?: boolean;
+  hideDownButton?: boolean;
 }>();
 
 defineEmits<{
@@ -12,8 +14,10 @@ defineEmits<{
 <template>
   <div class="post">
     <h2>Post {{ id }}</h2>
-    <button @click="$emit('click:moveUp', id)" :hidden="id === 0">Up</button>
-    <button @click="$emit('click:moveDown', id)">Down</button>
+    <button @click="$emit('click:moveUp', id)" v-if="!hideUpButton">Up</button>
+    <button @click="$emit('click:moveDown', id)" v-if="!hideDownButton">
+      Down
+    </button>
   </div>
 </template>
 
