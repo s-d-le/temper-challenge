@@ -29,7 +29,7 @@ const movePost = (index: number, direction: number) => {
 
   //history of the action
   history.value.push({
-    text: `Moved Post ${movedPost.id} from index ${index} to index ${newIndex}`,
+    text: `Moved post ${movedPost.id} from index ${index} to index ${newIndex}`,
     index: newIndex,
     state: posts.value.map((post) => post.id), //save the state of the posts
   });
@@ -49,9 +49,11 @@ const goBack = (index: number) => {
 </script>
 
 <template>
-  <div class="flex flex-row gap-x-16 justify-center pt-10">
+  <div
+    class="flex flex-row gap-x-16 justify-center pt-10 bg-slate-200 h-screen text-neutral-700"
+  >
     <div v-auto-animate class="w-1/2 gap-y-4 flex flex-col">
-      <h1>Sortable Post List</h1>
+      <h1 class="text-3xl font-medium">Sortable Post List</h1>
       <Post
         v-for="(post, index) in posts"
         :key="post.id"
@@ -63,13 +65,24 @@ const goBack = (index: number) => {
       />
     </div>
     <div>
-      <Card>
-        <h2>List of actions commited</h2>
+      <Card class="min-w-100">
+        <div class="p-6">
+          <h2 class="text-2xl font-medium">List of actions commited</h2>
+        </div>
         <div class="bg-neutral-100 p-6">
-          <Card v-auto-animate class="divide-y divide-solid">
+          <div v-if="history.length === 0" class="p-6">
+            No actions commited yet
+          </div>
+
+          <Card v-else v-auto-animate class="divide-y divide-solid">
             <div v-for="(item, index) in history" :key="item.index" class="p-6">
               {{ item.text }}
-              <button @click="goBack(index)">Time travel</button>
+              <button
+                @click="goBack(index)"
+                class="text-gray-700 bg-green-400 rounded py-2 px-4 ml-4"
+              >
+                Time travel
+              </button>
             </div>
           </Card>
         </div>

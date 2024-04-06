@@ -14,7 +14,7 @@ defineEmits<{
 </script>
 
 <template>
-  <Card class="flex justify-between text-neutral-500 p-6">
+  <Card class="flex justify-between p-6">
     <h2>Post {{ id }}</h2>
     <div class="flex flex-col gap-y-3 justify-center">
       <button @click="$emit('click:moveUp', id)" v-if="!hideUpButton">
