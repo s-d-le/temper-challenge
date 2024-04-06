@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import Post from "./components/Post.vue";
+import Card from "./components/Card.vue";
 
 type Post = {
   id: number;
@@ -48,26 +49,32 @@ const goBack = (index: number) => {
 </script>
 
 <template>
-  <div v-auto-animate>
-    <h1>Sortable Post List</h1>
-    <Post
-      v-for="(post, index) in posts"
-      :key="post.id"
-      :id="post.id"
-      @click:move-down="movePost(index, 1)"
-      @click:move-up="movePost(index, -1)"
-      :hide-up-button="index === 0"
-      :hide-down-button="index === posts.length - 1"
-    />
-  </div>
-  <div>
-    <h2>History</h2>
-    <ul v-auto-animate>
-      <li v-for="(item, index) in history" :key="item.index">
-        {{ item.text }}
-        <button @click="goBack(index)">Time travel</button>
-      </li>
-    </ul>
+  <div class="flex flex-row gap-x-16 justify-center pt-10">
+    <div v-auto-animate class="w-1/2 gap-y-4 flex flex-col">
+      <h1>Sortable Post List</h1>
+      <Post
+        v-for="(post, index) in posts"
+        :key="post.id"
+        :id="post.id"
+        @click:move-down="movePost(index, 1)"
+        @click:move-up="movePost(index, -1)"
+        :hide-up-button="index === 0"
+        :hide-down-button="index === posts.length - 1"
+      />
+    </div>
+    <div>
+      <Card>
+        <h2>List of actions commited</h2>
+        <div class="bg-neutral-100 p-6">
+          <Card v-auto-animate class="divide-y divide-solid">
+            <div v-for="(item, index) in history" :key="item.index" class="p-6">
+              {{ item.text }}
+              <button @click="goBack(index)">Time travel</button>
+            </div>
+          </Card>
+        </div>
+      </Card>
+    </div>
   </div>
 </template>
 

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import Card from "./Card.vue";
+
 defineProps<{
   id: number;
   hideUpButton?: boolean;
@@ -12,9 +14,7 @@ defineEmits<{
 </script>
 
 <template>
-  <div
-    class="flex justify-between text-neutral-500 bg-white border border-slate-100 rounded-md p-6 m-4 drop-shadow-[0_4px_4px_rgba(0,0,0,0.07)]"
-  >
+  <Card class="flex justify-between text-neutral-500 p-6">
     <h2>Post {{ id }}</h2>
     <div class="flex flex-col gap-y-3 justify-center">
       <button @click="$emit('click:moveUp', id)" v-if="!hideUpButton">
@@ -24,7 +24,7 @@ defineEmits<{
         <div class="triangle down"></div>
       </button>
     </div>
-  </div>
+  </Card>
 </template>
 
 <style scoped>
