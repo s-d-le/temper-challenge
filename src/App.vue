@@ -9,6 +9,8 @@ type Post = {
 
 const posts = ref<Post[]>([]);
 
+const initialState = ref<number[]>([]);
+
 const history = ref<{ text: string; index: number; state: number[] }[]>([]);
 
 fetch("https://jsonplaceholder.typicode.com/posts")
@@ -16,6 +18,8 @@ fetch("https://jsonplaceholder.typicode.com/posts")
   .then((json) => {
     //push the first 5 results into posts
     posts.value.push(...json.slice(0, 5));
+    //store initial state to reset on last time travel. this will be omitted in the UI
+    initialState.value.push(...posts.value.map((post) => post.id));
   });
 
 const movePost = (index: number, direction: number) => {
@@ -33,18 +37,24 @@ const movePost = (index: number, direction: number) => {
     index: newIndex,
     state: posts.value.map((post) => post.id), //save the state of the posts
   });
-
-  console.log(index, history.value);
 };
 
 const goBack = (index: number) => {
+  console.log(index);
+  // get the target state from the history
   const targetState = history.value[index].state;
-  //replace posts with the order stored in history.value.state
-  posts.value = targetState.map(
-    (id) => posts.value.find((post) => post.id === id)!
-  );
+  //reset the posts to the initial state if user select the first history entry
+  if (index === 0) {
+    posts.value = initialState.value.map(
+      (id) => posts.value.find((post) => post.id === id)!
+    );
+  } else {
+    posts.value = targetState.map(
+      (id) => posts.value.find((post) => post.id === id)!
+    );
+  }
   //remove all history items after the selected one
-  history.value.splice(index + 1);
+  history.value.splice(index);
 };
 </script>
 
@@ -70,7 +80,7 @@ const goBack = (index: number) => {
           <h2 class="text-2xl font-medium">List of actions commited</h2>
         </div>
         <div class="bg-neutral-100 p-6">
-          <div v-if="history.length === 0" class="p-6">
+          <div v-if="history.length === 0" class="p-6 text-center">
             No actions commited yet
           </div>
 
@@ -78,6 +88,7 @@ const goBack = (index: number) => {
             <div v-for="(item, index) in history" :key="item.index" class="p-6">
               {{ item.text }}
               <button
+                v-if="index !== history.length - 1"
                 @click="goBack(index)"
                 class="text-gray-700 bg-green-400 rounded py-2 px-4 ml-4"
               >
