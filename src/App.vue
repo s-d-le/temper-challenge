@@ -37,6 +37,8 @@ const movePost = (index: number, direction: number) => {
     index: newIndex,
     state: posts.value.map((post) => post.id), //save the state of the posts
   });
+
+  console.log("length:", history.value.length);
 };
 
 const goBack = (index: number) => {
@@ -60,10 +62,10 @@ const goBack = (index: number) => {
 
 <template>
   <div
-    class="flex flex-row gap-x-16 justify-center pt-10 bg-slate-200 h-screen text-neutral-700"
+    class="flex flex-row gap-x-16 justify-center pt-10 h-screen text-neutral-700 bg-gradient-to-tr from-purple-500 to-pink-500"
   >
     <div v-auto-animate class="w-1/2 gap-y-4 flex flex-col">
-      <h1 class="text-3xl font-medium">Sortable Post List</h1>
+      <h1 class="text-3xl font-medium text-white">Sortable Post List</h1>
       <Post
         v-for="(post, index) in posts"
         :key="post.id"
@@ -90,7 +92,7 @@ const goBack = (index: number) => {
               <button
                 v-if="index !== history.length - 1"
                 @click="goBack(index)"
-                class="text-gray-700 bg-green-400 rounded py-2 px-4 ml-4"
+                class="text-gray-700 bg-green-400 rounded py-2 px-4 ml-4 font-medium"
               >
                 Time travel
               </button>

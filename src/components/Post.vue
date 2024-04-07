@@ -17,10 +17,18 @@ defineEmits<{
   <Card class="flex justify-between p-6">
     <h2>Post {{ id }}</h2>
     <div class="flex flex-col gap-y-3 justify-center">
-      <button @click="$emit('click:moveUp', id)" v-if="!hideUpButton">
+      <button
+        data-testid="button-up"
+        @click="$emit('click:moveUp', id)"
+        v-if="!hideUpButton"
+      >
         <div class="triangle"></div>
       </button>
-      <button @click="$emit('click:moveDown', id)" v-if="!hideDownButton">
+      <button
+        data-testid="button-down"
+        @click="$emit('click:moveDown', id)"
+        v-if="!hideDownButton"
+      >
         <div class="triangle down"></div>
       </button>
     </div>
