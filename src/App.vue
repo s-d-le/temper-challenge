@@ -96,6 +96,13 @@ const goBack = (index: number) => {
               >
                 Time travel
               </button>
+              <button
+                v-else
+                disabled
+                class="text-gray-700 bg-gray-100 rounded py-2 px-4 ml-4 font-medium"
+              >
+                Current action
+              </button>
             </div>
           </Card>
         </div>

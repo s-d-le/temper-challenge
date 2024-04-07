@@ -24,7 +24,7 @@ describe("Post", () => {
     await wrapper.find("[data-testid='button-up']").trigger("click");
 
     expect(wrapper.emitted("click:moveUp")).toBeTruthy();
-    expect(wrapper.emitted("click:moveUp")[0][0]).toBe(1);
+    expect(wrapper.emitted("click:moveUp")?.[0]?.[0]).toBe(1);
   });
 
   it("emits 'click:moveDown' event when the down button is clicked", async () => {
@@ -36,8 +36,9 @@ describe("Post", () => {
 
     await wrapper.find("[data-testid='button-down']").trigger("click");
 
-    expect(wrapper.emitted("click:moveDown")).toBeTruthy();
-    expect(wrapper.emitted("click:moveDown")[0][0]).toBe(1);
+    const emittedEvent = wrapper.emitted("click:moveDown");
+    expect(emittedEvent).toBeTruthy();
+    expect(emittedEvent?.[0]?.[0]).toBe(1);
   });
 
   it("does not render the up button when hideUpButton prop is true", () => {
