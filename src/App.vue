@@ -37,8 +37,6 @@ const movePost = (index: number, direction: number) => {
     index: newIndex,
     state: posts.value.map((post) => post.id), //save the state of the posts
   });
-
-  console.log("length:", history.value.length);
 };
 
 const goBack = (index: number) => {
@@ -56,7 +54,7 @@ const goBack = (index: number) => {
     );
   }
   //remove all history items after the selected one
-  history.value.splice(index);
+  history.value.splice(index + 1);
 };
 </script>
 
